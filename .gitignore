@@ -1,0 +1,23 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/admin
+/assets
+/cache
+config.php
+/configs
+favicon.ico
+/help
+/images
+index.php
+issabel_warning_authentication.php
+/lang
+/mail
+/panels
+/pbxapi
+rest.php
+robots.txt
+templates_c
+/themes
+/var
+/old.modules
