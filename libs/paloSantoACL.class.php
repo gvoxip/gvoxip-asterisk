@@ -876,6 +876,34 @@ class paloACL {
         return $extension;
     }
 
+
+
+    function getUserNameGrupo($username)
+    {
+        $nameGrupo= null;
+        if (is_null($username)) {
+            $this->errMsg = "Username is not valid";
+        } else {
+            $this->errMsg = "";
+            $sPeticionSQL = " SELECT grp.name as grupo_nome FROM acl_membership userGrp
+                              INNER JOIN acl_user user on user.id = userGrp.id_user
+                              INNER JOIN acl_group grp on grp.id = userGrp.id_group
+                              WHERE  user.name = ?";
+            $result = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, array($username));
+            if ($result && is_array($result) && count($result)>0) {
+                $nameGrupo = $result[0];
+            }else $this->errMsg = $this->_DB->errMsg;
+        }
+        return $nameGrupo;
+    }
+
+
+
+
+    
+ 
+
+
     /**
      * Procedimiento para asignar únicamente la extensión de un usuario existente.
      *

@@ -78,7 +78,8 @@ class paloSantoCDR
                 return NULL;
             }
         }
-        
+
+       
         // Estado de la llamada
         if (isset($param['uniqueid']) && $param['uniqueid'] != '') {
             $uniques = preg_split("/,/",$param['uniqueid']);
@@ -95,7 +96,7 @@ class paloSantoCDR
         }
 
         // Extensión de fuente o destino
-        if (isset($param['extension'])) {
+     /*   if (isset($param['extension'])) {
             $condSQL[] = <<<SQL_COND_EXTENSION
 (
        src = ?
@@ -106,13 +107,20 @@ class paloSantoCDR
 SQL_COND_EXTENSION;
             array_push($paramSQL, $param['extension'], $param['extension'],
                 $param['extension'], $param['extension']);
-        }
+        } */
 
         // Grupo de timbrado
         if (isset($param['ringgroup'])) {
         	$condSQL[] = 'dst = ?';
             $paramSQL[] = $param['ringgroup'];
         }
+
+
+       
+
+        
+
+
         
         // Dirección de la llamada
         if (isset($param['calltype']) && 
@@ -148,6 +156,7 @@ SQL_COND_EXTENSION;
         }
 
         // field_name, field_pattern
+        
         if (isset($param['field_name']) && isset($param['field_pattern'])) {            
             /* No se intenta interpretar field_pattern. Únicamente se construye
                la condición LIKE para que el campo correspondiente contenga como
@@ -176,18 +185,29 @@ SQL_COND_EXTENSION;
                 $fieldSQL = array_merge($fieldSQL, array_fill(0, count($listaPat), "$chanexpr LIKE ?"));
             }
             
-            $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
+         //   $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
         }
         
         //Filter local channels ;2 from channel field
         if ($filterLocalChannel) {
             $condSQL[] = "channel NOT LIKE 'Local/%;2'";
-        }   
+        }  
+       
+        
+        if (isset($param['nameGrupoUsuario'])) {
+            if($param['nameGrupoUsuario'] != 'administrator') {
+               // echo 'grupo '.$param['nameGrupoUsuario'];
+                $condSQL[] = 'COALESCE(description, descr) = ?';
+                $paramSQL[] = $param['nameGrupoUsuario'];
+            }
+        	
+        }
 
+        
         // Construir fragmento completo de sentencia SQL
         $where = array(implode(' AND ', $condSQL), $paramSQL);
         if ($where[0] != '') $where[0] = 'WHERE '.$where[0];
-
+       // echo $where[0];
         return $where;
     }
 
@@ -237,13 +257,18 @@ SQL_COND_EXTENSION;
             'SELECT COUNT(*) FROM cdr '.
             'LEFT JOIN asterisk.ringgroups '.
                 'ON asteriskcdrdb.cdr.dst = asterisk.ringgroups.grpnum '.
+            'LEFT JOIN asterisk.queues_config '.
+                'ON asteriskcdrdb.cdr.dst = asterisk.queues_config.extension '.
             $sWhere;
+            echo ' WHERE '.$sWhere;
         $r = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, $paramSQL);
         if (!is_array($r)) {
             $this->errMsg = '(internal) Failed to count CDRs - '.$this->_DB->errMsg;
             return NULL;
         }
         //TODO: ESTO DEBERIA SER QUITADO EN UN FUTURO
+
+        echo 'quantidade ' + $r[0];
         $resultado['total'] = $r[0];
         
         $resultado['cdrs'] = array();
@@ -264,6 +289,7 @@ SQL_COND_EXTENSION;
             $sPeticionSQL .= " LIMIT ? OFFSET ?";
             array_push($paramSQL, $limit, $offset);
         }
+       // echo ' paramSQL '.$paramSQL;
         $resultado['cdrs'] = $this->_DB->fetchTable($sPeticionSQL, FALSE, $paramSQL);
         if (!is_array($resultado['cdrs'])) {
             $this->errMsg = '(internal) Failed to fetch CDRs - '.$this->_DB->errMsg;
