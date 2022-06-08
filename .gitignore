@@ -9,8 +9,6 @@ config.php
 favicon.ico
 /help
 /images
-index.php
-issabel_warning_authentication.php
 /lang
 /mail
 /panels
