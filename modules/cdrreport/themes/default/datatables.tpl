@@ -133,32 +133,4 @@ mark {
 </div>
 
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
 
-  <!-- Modal content -->
-      <div id="single-song-player">
-      <span class="close">&times;</span>
-      <div class="bottom-container">
-        <!-- <progress class="amplitude-song-played-progress" id="song-played-progress"></progress> -->
-        <input type="range" class="amplitude-song-slider" data-amplitude-song-index="0"/>
-
-        <div class="time-container">
-          <span class="current-time">
-            <span class="amplitude-current-minutes"></span>:<span class="amplitude-current-seconds"></span>
-          </span>
-          <span class="duration">
-            <span class="amplitude-duration-minutes"></span>:<span class="amplitude-duration-seconds"></span>
-          </span>
-        </div>
-
-        <div class="control-container">
-          <div class="amplitude-play-pause" id="play-pause"></div>
-          <div class="meta-container">
-            <span data-amplitude-song-info="name" class="song-name"></span>
-            <span data-amplitude-song-info="artist"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
