@@ -188,7 +188,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
 
     $arrData = null;
     $arrColumns = array(_tr("UniqueID"), _tr("Date"), _tr("Time"), _tr("Source"),
-            _tr("Destination"),_tr("Duration"),_tr("Type"),_tr("Message"));
+            _tr("Destination"),_tr("Duration"),_tr("Type"),_tr("Message"), _tr("Grupo de Chamada"), _tr("Protocolo"), _tr("Canal de Destino") );
 
     // Se asume que sólo el administrador puede consultar con extension NULL
     $offset=0;
@@ -230,6 +230,9 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
                 $recordingLink = '';
             }
             $arrTmp[7] = $recordingLink;
+            $arrTmp[8] = $value['description'];
+            $arrTmp[9] = $value['accountcode'];
+            $arrTmp[10] = $value['dstchannel'];
 
             $arrData[] = $arrTmp;
         }

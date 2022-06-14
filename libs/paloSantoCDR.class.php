@@ -260,7 +260,7 @@ SQL_COND_EXTENSION;
             'LEFT JOIN asterisk.queues_config '.
                 'ON asteriskcdrdb.cdr.dst = asterisk.queues_config.extension '.
             $sWhere;
-            echo ' WHERE '.$sWhere;
+           // echo ' WHERE '.$sWhere;
         $r = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, $paramSQL);
         if (!is_array($r)) {
             $this->errMsg = '(internal) Failed to count CDRs - '.$this->_DB->errMsg;
@@ -268,7 +268,7 @@ SQL_COND_EXTENSION;
         }
         //TODO: ESTO DEBERIA SER QUITADO EN UN FUTURO
 
-        echo 'quantidade ' + $r[0];
+       /// echo 'quantidade ' + $r[0];
         $resultado['total'] = $r[0];
         
         $resultado['cdrs'] = array();

@@ -79,10 +79,16 @@ mark {
       <th>{$COLUMNS[5]}</th>
       <th>{$COLUMNS[6]}</th>
       <th>{$COLUMNS[7]}</th>
+      <th>{$COLUMNS[8]}</th>
+      <th>{$COLUMNS[9]}</th>
+      <th>{$COLUMNS[10]}</th>
   </tr>
   </thead>
   <tbody>
     <tr>
+      <td></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>

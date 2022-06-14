@@ -304,6 +304,9 @@ function _moduleContent(&$smarty, $module_name)
     $arrResult = $oCDR->listarCDRs($paramFiltro, $limit, 0, $filterLocalChannel);
     $total     = count($arrResult['cdrs']);
 
+
+   
+
     if(is_array($arrResult['cdrs']) && $total>0) {
         foreach($arrResult['cdrs'] as $key => $value) {
             $arrTmp[0] = $value[0];
