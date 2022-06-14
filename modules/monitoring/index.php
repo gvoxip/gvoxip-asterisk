@@ -186,7 +186,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
        'date_end'               => $_POST['date_end'],
        'limit'                  => isset($limit)?$limit:'100000',
     );
-    $paramFilter['nameGrupoUsuario'] = $nameGrupoUsuario;
+    $param['nameGrupoUsuario'] = $nameGrupoUsuario;
     $url = array_merge($url, $paramFilter);
 
     $arrData = null;
