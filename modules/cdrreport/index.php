@@ -305,8 +305,6 @@ function _moduleContent(&$smarty, $module_name)
     $total     = count($arrResult['cdrs']);
 
 
-   
-
     if(is_array($arrResult['cdrs']) && $total>0) {
         foreach($arrResult['cdrs'] as $key => $value) {
             $arrTmp[0] = $value[0];
