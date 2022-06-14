@@ -53,7 +53,7 @@ function _moduleContent(&$smarty, $module_name)
     $pACL = new paloACL($pDBACL);
     $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"";
     $extension = $pACL->getUserExtension($user);
-    $nameGrupoUsuario = $pACL->getUserNameGrupo($user);
+    
     if ($extension == '') $extension = NULL;
 
     // Sólo el administrador puede consultar con $extension == NULL
@@ -82,6 +82,7 @@ function _moduleContent(&$smarty, $module_name)
 
 function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $pACL, $arrConf, $user, $extension)
 {
+    $nameGrupoUsuario = $pACL->getUserNameGrupo($user);
     require_once "libs/paloSantoForm.class.php";
     $arrUniqueids=explode(',', $_POST['uniqueid']);    
     if (isset($_POST['submit_eliminar']) && isset($_POST['uniqueid']) &&
