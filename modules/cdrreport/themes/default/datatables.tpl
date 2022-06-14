@@ -80,8 +80,8 @@ mark {
       <th>{$COLUMNS[7]}</th>
       <th>{$COLUMNS[8]}</th>
       <th>{$COLUMNS[9]}</th>
-      <th>{$COLUMNS[10]}</th>
-      <th>{$COLUMNS[11]}</th>
+      <th>{$COLUMNS[14]}</th>
+      <th>{$COLUMNS[15]}</th>
       <th>CEL</th>
   </tr>
   </thead>
