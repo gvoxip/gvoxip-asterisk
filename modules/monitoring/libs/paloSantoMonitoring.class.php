@@ -153,6 +153,16 @@ SQL_COND_EXTENSION;
             $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
         }
 
+
+        if (isset($param['nameGrupoUsuario'])) {
+            if($param['nameGrupoUsuario'] != 'administrator') {
+               // echo 'grupo '.$param['nameGrupoUsuario'];
+                $condSQL[] = 'COALESCE(description, descr) = ?';
+                $paramSQL[] = $param['nameGrupoUsuario'];
+            }
+        	
+        }
+
         // Construir fragmento completo de sentencia SQL
         $where = array(implode(' AND ', $condSQL), $paramSQL);
         if ($where[0] != '') $where[0] = 'WHERE '.$where[0];
@@ -179,7 +189,9 @@ SQL_COND_EXTENSION;
         if (is_null($sWhere)) return NULL;
 
         // TODO: paloSantoCDR ordena por calldate DESC. ¿Debería ser concordante?
-        $query = 'SELECT * FROM cdr '.$sWhere.' ORDER BY uniqueid DESC';
+        $query = ' SELECT * FROM cdr '.   
+                 ' LEFT JOIN asterisk.ringgroups ON asteriskcdrdb.cdr.dst = asterisk.ringgroups.grpnum '.
+                 ' LEFT JOIN asterisk.queues_config ON asteriskcdrdb.cdr.dst = asterisk.queues_config.extension '.$sWhere.' ORDER BY uniqueid DESC';
         if (!empty($limit)) {
             $query .= " LIMIT ? OFFSET ?";
             array_push($paramSQL, $limit, $offset);

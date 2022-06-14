@@ -53,6 +53,7 @@ function _moduleContent(&$smarty, $module_name)
     $pACL = new paloACL($pDBACL);
     $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"";
     $extension = $pACL->getUserExtension($user);
+    $nameGrupoUsuario = $pACL->getUserNameGrupo($user);
     if ($extension == '') $extension = NULL;
 
     // Sólo el administrador puede consultar con $extension == NULL
@@ -184,6 +185,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
        'date_end'               => $_POST['date_end'],
        'limit'                  => isset($limit)?$limit:'100000',
     );
+    $paramFilter['nameGrupoUsuario'] = $nameGrupoUsuario;
     $url = array_merge($url, $paramFilter);
 
     $arrData = null;
@@ -230,7 +232,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
                 $recordingLink = '';
             }
             $arrTmp[7] = $recordingLink;
-            $arrTmp[8] = $value['description'];
+            $arrTmp[8] = $value['descr'];
             $arrTmp[9] = $value['accountcode'];
             $arrTmp[10] = $value['dstchannel'];
 
