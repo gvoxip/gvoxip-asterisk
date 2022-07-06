@@ -280,7 +280,7 @@ SQL_COND_EXTENSION;
         if (!is_array($r)) {
             echo ' entrou '.$r;
             $this->errMsg = '(internal) Failed to count CDRs - '.$this->_DB->errMsg;
-            return NULL;
+           // talvez usa return NULL;
         }
         //TODO: ESTO DEBERIA SER QUITADO EN UN FUTURO
 
