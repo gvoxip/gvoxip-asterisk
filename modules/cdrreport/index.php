@@ -327,6 +327,8 @@ function _moduleContent(&$smarty, $module_name)
             $nameFilterField = _tr("Source");
             break;
     }
+
+    $field_pattern     = getParameter("field_pattern");
     echo 'field '.$filter_field;
     echo 'value '.$field_pattern;
     if ($filter_field != '' && $field_pattern != '') $paramFiltro[$filter_field] = $field_pattern;
