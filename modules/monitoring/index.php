@@ -466,6 +466,8 @@ function createFieldFilter(){
             "src"       => _tr("Source"),
             "dst"       => _tr("Destination"),
             "recordingfile" => _tr("Type"),
+            "accountcode" => _tr("Account Code"),
+            "dstchannel"  => _tr("Dst. Channel"),
                     );
 
     $arrFormElements = array(
