@@ -129,7 +129,7 @@ function _moduleContent(&$smarty, $module_name)
                             "INPUT_TYPE"             => "SELECT",
                             "INPUT_EXTRA_PARAM"      => array( "dst"         => _tr("Destination"),
                                                                "src"         => _tr("Source"),
-                                                               "channel"     => _tr("Src. Channel"),
+                                                              # "channel"     => _tr("Src. Channel"),
                                                                "accountcode" => _tr("Account Code"),
                                                                "dstchannel"  => _tr("Dst. Channel")
                                                                #,

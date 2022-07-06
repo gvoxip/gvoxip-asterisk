@@ -228,9 +228,9 @@ SQL_COND_EXTENSION;
             // echo ' sql '.$sPeticionSQL;
            //  echo ' accountcode '.$paramSQL['accountcode'];
            //  echo ' dstchannel '.$paramSQL['dstchannel'];
-             foreach ($paramSQL as $value) {
-                echo "$value |";
-              }
+          //   foreach ($paramSQL as $value) {
+           //     echo "$value |";
+           //   }
      
             //if (isset($param[''])) 
         $r = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, $paramSQL);
