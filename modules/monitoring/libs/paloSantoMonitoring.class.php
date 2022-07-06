@@ -154,6 +154,29 @@ SQL_COND_EXTENSION;
         }
 
 
+
+        if (isset($param['accountcode'])) {
+  
+               // echo 'grupo '.$param['nameGrupoUsuario'];
+                $condSQL[] = 'accountcode = ?';
+                $paramSQL[] = $param['accountcode'];
+            
+        	
+        }
+
+        if (isset($param['dstchannel'])) {
+  
+            // echo 'grupo '.$param['nameGrupoUsuario'];
+             $condSQL[] = 'dstchannel = ?';
+             $paramSQL[] = $param['dstchannel'];
+         
+         
+     }
+
+        
+
+
+
         if (isset($param['nameGrupoUsuario'])) {
             if($param['nameGrupoUsuario'] != 'administrator') {
                // echo 'grupo '.$param['nameGrupoUsuario'];
