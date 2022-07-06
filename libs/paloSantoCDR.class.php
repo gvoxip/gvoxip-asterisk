@@ -156,11 +156,11 @@ SQL_COND_EXTENSION;
         }
 
         // field_name, field_pattern
-        
+        /* 
         if (isset($param['field_name']) && isset($param['field_pattern'])) {            
-            /* No se intenta interpretar field_pattern. Únicamente se construye
+            No se intenta interpretar field_pattern. Únicamente se construye
                la condición LIKE para que el campo correspondiente contenga como
-               subcadena el valor de field_pattern. */
+               subcadena el valor de field_pattern. *--
             $sCampo = $param['field_name'];
             $listaPat = array_filter(
                 array_map('trim', 
@@ -177,7 +177,7 @@ SQL_COND_EXTENSION;
             
             /* Caso especial: si se especifica field_pattern=src|dst, también 
              * debe buscarse si el canal fuente o destino contiene el patrón
-             * dentro de su especificación de canal. */
+             * dentro de su especificación de canal. --
             if ($sCampo == 'src' || $sCampo == 'dst') {
             	if ($sCampo == 'src') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1)";
                 if ($sCampo == 'dst') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1)";
@@ -186,7 +186,7 @@ SQL_COND_EXTENSION;
             }
             
          //   $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
-        }
+        } */
         
         //Filter local channels ;2 from channel field
         if ($filterLocalChannel) {
