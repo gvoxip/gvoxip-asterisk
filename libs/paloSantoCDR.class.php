@@ -303,6 +303,7 @@ SQL_COND_EXTENSION;
             $sPeticionSQL .= " LIMIT ? OFFSET ?";
             array_push($paramSQL, $limit, $offset);
         }
+        echo ' sql '.$sPeticionSQL;
        // echo ' paramSQL '.$paramSQL;
         $resultado['cdrs'] = $this->_DB->fetchTable($sPeticionSQL, FALSE, $paramSQL);
         if (!is_array($resultado['cdrs'])) {
