@@ -131,9 +131,11 @@ function _moduleContent(&$smarty, $module_name)
                                                                "src"         => _tr("Source"),
                                                                "channel"     => _tr("Src. Channel"),
                                                                "accountcode" => _tr("Account Code"),
-                                                               "dstchannel"  => _tr("Dst. Channel"),
-                                                               "did"         => _tr("DID"),
-                                                               "userfield"   => _tr("User Field")),
+                                                               "dstchannel"  => _tr("Dst. Channel")
+                                                               #,
+                                                             #  "did"         => _tr("DID"),
+                                                              # "userfield"   => _tr("User Field")
+                                                            ),
                             "VALIDATION_TYPE"        => "ereg",
                             "VALIDATION_EXTRA_PARAM" => "^(dst|src|channel|dstchannel|accountcode|userfield|did)$"),
         "field_pattern" => array(

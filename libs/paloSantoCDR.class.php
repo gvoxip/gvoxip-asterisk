@@ -192,6 +192,19 @@ SQL_COND_EXTENSION;
         if ($filterLocalChannel) {
             $condSQL[] = "channel NOT LIKE 'Local/%;2'";
         }  
+
+
+
+        
+        if (isset($param['accountcode'])) {
+            $condSQL[] = 'accountcode = ?';
+            $paramSQL[] = $param['accountcode'];
+      }
+
+       if (isset($param['dstchannel'])) {
+         $condSQL[] = 'dstchannel = ?';
+         $paramSQL[] = $param['dstchannel'];
+       }
        
         
         if (isset($param['nameGrupoUsuario'])) {
