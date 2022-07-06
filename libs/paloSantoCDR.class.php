@@ -275,12 +275,17 @@ SQL_COND_EXTENSION;
             $sWhere;
            // echo ' WHERE '.$sWhere;
              echo ' sql '.$sPeticionSQL;
+             echo ' accountcode '.$paramSQL['accountcode'];
+             echo ' dstchannel '.$paramSQL['dstchannel'];
+
+     
+            //if (isset($param[''])) 
         $r = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, $paramSQL);
         echo ' result '.$r;
         if (!is_array($r)) {
             echo ' entrou '.$r;
             $this->errMsg = '(internal) Failed to count CDRs - '.$this->_DB->errMsg;
-           // talvez usa return NULL;
+            return NULL;
         }
         //TODO: ESTO DEBERIA SER QUITADO EN UN FUTURO
 
