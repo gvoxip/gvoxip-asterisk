@@ -106,11 +106,20 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
             $filter_field = "recordingfile";
             $nameFilterField = _tr("Type");
             break;
+        case "accountcode":
+                $filter_field = "accountcode";
+                $nameFilterField = _tr("Protocolo");
+                break;
+        case "dstchannel":
+                    $filter_field = "dstchannel";
+                    $nameFilterField = _tr("Canal de Destino");
+                    break;
         default:
             $filter_field = "src";
             $nameFilterField = _tr("Source");
             break;
     }
+
     if($filter_field == "recordingfile"){
         $filter_value     = getParameter("filter_value_recordingfile");
         $filter           = "";
@@ -466,8 +475,8 @@ function createFieldFilter(){
             "src"       => _tr("Source"),
             "dst"       => _tr("Destination"),
             "recordingfile" => _tr("Type"),
-            "accountcode" => _tr("Account Code"),
-            "dstchannel"  => _tr("Dst. Channel"),
+            "accountcode" => _tr("Protocolo"),
+            "dstchannel"  => _tr("Canal de Destino")
                     );
 
     $arrFormElements = array(
