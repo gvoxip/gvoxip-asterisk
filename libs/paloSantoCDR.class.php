@@ -140,6 +140,36 @@ SQL_COND_EXTENSION;
         }
 
 
+
+
+        foreach (array('src', 'dst') as $sCampo) if (isset($param[$sCampo])) {
+            $listaPat = array_filter(
+                array_map('trim',
+                    is_array($param[$sCampo])
+                        ? $param[$sCampo]
+                        : explode(',', trim($param[$sCampo]))),
+                '_construirWhereMonitoring_notempty');
+
+            if (!function_exists('_construirWhereMonitoring_troncal2like2')) {
+                function _construirWhereMonitoring_troncal2like2($s) { return '%'.$s.'%'; }
+            }
+            $paramSQL = array_merge($paramSQL, array_map('_construirWhereMonitoring_troncal2like2', $listaPat));
+            $fieldSQL = array_fill(0, count($listaPat), "$sCampo LIKE ?");
+
+            /* Caso especial: si se especifica field_pattern=src|dst, también
+             * debe buscarse si el canal fuente o destino contiene el patrón
+             * dentro de su especificación de canal. */
+            if ($sCampo == 'src' || $sCampo == 'dst') {
+                if ($sCampo == 'src') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1)";
+                if ($sCampo == 'dst') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1)";
+                $paramSQL = array_merge($paramSQL, array_map('_construirWhereMonitoring_troncal2like2', $listaPat));
+                $fieldSQL = array_merge($fieldSQL, array_fill(0, count($listaPat), "$chanexpr LIKE ?"));
+            }
+
+            $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
+        }
+
+
         
 
         
