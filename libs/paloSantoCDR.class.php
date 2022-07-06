@@ -141,71 +141,7 @@ SQL_COND_EXTENSION;
 
 
         
-        // Dirección de la llamada
-        if (isset($param['calltype']) && 
-            in_array($param['calltype'], array('incoming', 'outgoing'))) {
-            $sCampo = ($param['calltype'] == 'incoming') ? 'channel' : 'dstchannel';
-            $listaTroncales = array();
-            if (isset($param['troncales']) && is_array($param['troncales'])) {
-                $listaTroncales = $param['troncales'];
-            }
 
-            // TODO: expandir troncales al estilo DAHDI/g0
-
-            if (count($listaTroncales) > 0) {
-                /* Se asume que la lista de troncales es válida, y que todo canal
-                   empieza con la troncal correspondiente */
-                if (!function_exists('_construirWhereCDR_troncal2like')) {
-                    // Búsqueda por DAHDI/1 debe ser 'DAHDI/1-%'
-                    function _construirWhereCDR_troncal2like($s) { return $s.'-%'; }
-                }
-                $paramSQL = array_merge($paramSQL, array_map('_construirWhereCDR_troncal2like', $listaTroncales));
-                $condSQL[] = '('.implode(' OR ', array_fill(0, count($listaTroncales), "$sCampo LIKE ?")).')';                
-            } else {
-                /* Filtrar por todo lo que parezca troncal. Actualmente se recoge 
-                   ZAP, DAHDI, y SIP/IAX2/H323 con un valor a la derecha que 
-                   contenga al menos un caracter alfabético.
-                   FIXME: no reconoce troncales enteramente numéricas que parecen teléfonos
-                   FIXME: no reconoce troncales si tienen caracteres no alfanuméricos
-                   FIXME: no reconoce troncales custom (¿cómo se las busca?)
-                 */
-                $sRegExpTroncal = '^(ZAP/.+|DAHDI/.+|(SIP|IAX|IAX2|H323)/([[:alnum:]]*[[:alpha:]][[:alnum:]]*))-';
-                $condSQL[] = "$sCampo REGEXP '$sRegExpTroncal'";
-            }
-        }
-
-        // field_name, field_pattern
-        
-        if (isset($param['field_name']) && isset($param['field_pattern'])) {            
-            /* No se intenta interpretar field_pattern. Únicamente se construye
-               la condición LIKE para que el campo correspondiente contenga como
-               subcadena el valor de field_pattern. */
-            $sCampo = $param['field_name'];
-            $listaPat = array_filter(
-                array_map('trim', 
-                    is_array($param['field_pattern']) 
-                        ? $param['field_pattern'] 
-                        : explode(',', trim($param['field_pattern']))), 
-                '_construirWhereCDR_notempty');
-
-            if (!function_exists('_construirWhereCDR_troncal2like2')) {
-                function _construirWhereCDR_troncal2like2($s) { return '%'.$s.'%'; }
-            }
-            $paramSQL = array_merge($paramSQL, array_map('_construirWhereCDR_troncal2like2', $listaPat));
-            $fieldSQL = array_fill(0, count($listaPat), "$sCampo LIKE ?");
-            
-            /* Caso especial: si se especifica field_pattern=src|dst, también 
-             * debe buscarse si el canal fuente o destino contiene el patrón
-             * dentro de su especificación de canal. */
-            if ($sCampo == 'src' || $sCampo == 'dst') {
-            	if ($sCampo == 'src') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1)";
-                if ($sCampo == 'dst') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1)";
-                $paramSQL = array_merge($paramSQL, array_map('_construirWhereCDR_troncal2like2', $listaPat));
-                $fieldSQL = array_merge($fieldSQL, array_fill(0, count($listaPat), "$chanexpr LIKE ?"));
-            }
-            
-         //   $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
-        }
         
         //Filter local channels ;2 from channel field
         if ($filterLocalChannel) {
