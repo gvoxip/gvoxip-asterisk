@@ -303,35 +303,35 @@ function _moduleContent(&$smarty, $module_name)
     $timeInSecs = $paramFiltro['timeInSecs'];
 
 
-    $filter_field = getParameter("filter_field");
+    $field_name = getParameter("field_name");
 
-    switch($filter_field){
+    switch($field_name ){
         case "dst":
-            $filter_field = "dst";
+            $field_name = "dst";
             $nameFilterField = _tr("Destination");
             break;
         case "recordingfile":
-            $filter_field = "recordingfile";
+            $field_name  = "recordingfile";
             $nameFilterField = _tr("Type");
             break;
         case "accountcode":
-                $filter_field = "accountcode";
+                 $field_name  = "accountcode";
                 $nameFilterField = _tr("Protocolo");
                 break;
         case "dstchannel":
-                    $filter_field = "dstchannel";
+                    $field_name  = "dstchannel";
                     $nameFilterField = _tr("Canal de Destino");
                     break;
         default:
-            $filter_field = "src";
+            $field_name  = "src";
             $nameFilterField = _tr("Source");
             break;
     }
 
     $field_pattern     = getParameter("field_pattern");
-    echo 'field '.$filter_field;
+    echo 'field '.$field_name ;
     echo 'value '.$field_pattern;
-    if ($filter_field != '' && $field_pattern != '') $paramFiltro[$filter_field] = $field_pattern;
+    if ($field_name  != '' && $field_pattern != '') $paramFiltro[$field_name] = $field_pattern;
     $paramFiltro['nameGrupoUsuario'] = $nameGrupoUsuario;
     #echo 'grupo '.$paramFiltro['nameGrupoUsuario'];
     $arrResult = $oCDR->listarCDRs($paramFiltro, $limit, 0, $filterLocalChannel);
