@@ -225,18 +225,18 @@ SQL_COND_EXTENSION;
                 'ON asteriskcdrdb.cdr.dst = asterisk.queues_config.extension '.
             $sWhere;
            // echo ' WHERE '.$sWhere;
-             echo ' sql '.$sPeticionSQL;
-             echo ' accountcode '.$paramSQL['accountcode'];
-             echo ' dstchannel '.$paramSQL['dstchannel'];
+            // echo ' sql '.$sPeticionSQL;
+           //  echo ' accountcode '.$paramSQL['accountcode'];
+           //  echo ' dstchannel '.$paramSQL['dstchannel'];
              foreach ($paramSQL as $value) {
                 echo "$value |";
               }
      
             //if (isset($param[''])) 
         $r = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, $paramSQL);
-        echo ' result '.$r;
+     //   echo ' result '.$r;
         if (!is_array($r)) {
-            echo ' entrou '.$r;
+       //     echo ' entrou '.$r;
             $this->errMsg = '(internal) Failed to count CDRs - '.$this->_DB->errMsg;
             return NULL;
         }
@@ -263,7 +263,7 @@ SQL_COND_EXTENSION;
             $sPeticionSQL .= " LIMIT ? OFFSET ?";
             array_push($paramSQL, $limit, $offset);
         }
-        echo ' sql 2 '.$sPeticionSQL;
+      //  echo ' sql 2 '.$sPeticionSQL;
        // echo ' paramSQL '.$paramSQL;
         $resultado['cdrs'] = $this->_DB->fetchTable($sPeticionSQL, FALSE, $paramSQL);
         if (!is_array($resultado['cdrs'])) {
