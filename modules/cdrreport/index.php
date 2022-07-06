@@ -329,8 +329,8 @@ function _moduleContent(&$smarty, $module_name)
     }
 
     $field_pattern     = getParameter("field_pattern");
-    echo 'field '.$field_name ;
-    echo 'value '.$field_pattern;
+   // echo 'field '.$field_name ;
+  //  echo 'value '.$field_pattern;
     if ($field_name  != '' && $field_pattern != '') $paramFiltro[$field_name] = $field_pattern;
     $paramFiltro['nameGrupoUsuario'] = $nameGrupoUsuario;
     #echo 'grupo '.$paramFiltro['nameGrupoUsuario'];

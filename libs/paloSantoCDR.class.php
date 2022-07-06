@@ -128,7 +128,7 @@ SQL_COND_EXTENSION;
   }
 
 
-        echo "parametos ".$param['accountcode'];
+      //  echo "parametos ".$param['accountcode'];
         if (isset($param['accountcode'])) {
             $condSQL[] = 'accountcode = ?';
             $paramSQL[] = $param['accountcode'];
