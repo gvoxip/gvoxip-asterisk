@@ -274,6 +274,7 @@ SQL_COND_EXTENSION;
                 'ON asteriskcdrdb.cdr.dst = asterisk.queues_config.extension '.
             $sWhere;
            // echo ' WHERE '.$sWhere;
+              echo ' sql '.$sPeticionSQL;
         $r = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, $paramSQL);
         if (!is_array($r)) {
             $this->errMsg = '(internal) Failed to count CDRs - '.$this->_DB->errMsg;
