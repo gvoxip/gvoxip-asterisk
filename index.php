@@ -22,6 +22,7 @@
   $Id: index.php, Wed 30 Jun 2021 04:41:59 PM EDT, nicolas@issabel.com
 */
 
+
 function spl_issabel_class_autoload($sNombreClase)
 {
     if (!preg_match('/^\w+$/', $sNombreClase)) return;
