@@ -912,7 +912,7 @@ class paloACL {
                                 WHERE  grp.name = ?";
             $result = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, array($grupoName));
             if ($result && is_array($result) && count($result)>0) {
-                $$ramais = $result[0];
+                $ramais = $result[0];
             }else $this->errMsg = $this->_DB->errMsg;
         }
         return $ramais;
