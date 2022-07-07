@@ -228,7 +228,7 @@ SQL_COND_EXTENSION;
             'LEFT JOIN asterisk.queues_config '.
                 'ON asteriskcdrdb.cdr.dst = asterisk.queues_config.extension '.
             $sWhere;
-            echo ' WHERE '.$sWhere;
+           // echo ' WHERE '.$sWhere;
             // echo ' sql '.$sPeticionSQL;
            //  echo ' accountcode '.$paramSQL['accountcode'];
            //  echo ' dstchannel '.$paramSQL['dstchannel'];
