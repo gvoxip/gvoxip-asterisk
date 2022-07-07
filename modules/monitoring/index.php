@@ -83,6 +83,7 @@ function _moduleContent(&$smarty, $module_name)
 function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $pACL, $arrConf, $user, $extension)
 {
     $nameGrupoUsuario = $pACL->getUserNameGrupo($user);
+    $ramaisGrupoUsuario = $pACL->getRamaisNameGrupo($nameGrupoUsuario);
     require_once "libs/paloSantoForm.class.php";
     $arrUniqueids=explode(',', $_POST['uniqueid']);    
     if (isset($_POST['submit_eliminar']) && isset($_POST['uniqueid']) &&
@@ -196,6 +197,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
        'limit'                  => isset($limit)?$limit:'100000',
     );
     $param['nameGrupoUsuario'] = $nameGrupoUsuario;
+    $param['ramaisGrupoUsuario'] = $ramaisGrupoUsuario;
     $url = array_merge($url, $paramFilter);
 
     $arrData = null;
