@@ -69,7 +69,7 @@ function _moduleContent(&$smarty, $module_name)
     $user = $_SESSION['issabel_user'];
     $extension = $pACL->getUserExtension($user);
     $nameGrupoUsuario = $pACL->getUserNameGrupo($user);
-    
+    $ramaisGrupoUsuario = $pACL->getRamaisNameGrupo($nameGrupoUsuario);
     if ($extension == '') $extension = NULL;
 
     $bPuedeVerTodos = hasModulePrivilege($user, $module_name, 'reportany');
@@ -333,6 +333,8 @@ function _moduleContent(&$smarty, $module_name)
   //  echo 'value '.$field_pattern;
     if ($field_name  != '' && $field_pattern != '') $paramFiltro[$field_name] = $field_pattern;
     $paramFiltro['nameGrupoUsuario'] = $nameGrupoUsuario;
+    $paramFiltro['ramaisGrupoUsuario'] = $ramaisGrupoUsuario;
+    
     #echo 'grupo '.$paramFiltro['nameGrupoUsuario'];
     $arrResult = $oCDR->listarCDRs($paramFiltro, $limit, 0, $filterLocalChannel);
     $total     = count($arrResult['cdrs']);
