@@ -1,180 +1,546 @@
-<?php
-  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
-  Codificación: UTF-8
-  +----------------------------------------------------------------------+
-  | Issabel version {ISSBEL_VERSION}                                               |
-  | http://www.issabel.org                                               |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2017 Issabel Foundation                                |
-  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
-  +----------------------------------------------------------------------+
-  | The contents of this file are subject to the General Public License  |
-  | (GPL) Version 2 (the "License"); you may not use this file except in |
-  | compliance with the License. You may obtain a copy of the License at |
-  | http://www.opensource.org/licenses/gpl-license.php                   |
-  |                                                                      |
-  | Software distributed under the License is distributed on an "AS IS"  |
-  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
-  | the License for the specific language governing rights and           |
-  | limitations under the License.                                       |
-  +----------------------------------------------------------------------+
-  | The Initial Developer of the Original Code is PaloSanto Solutions    |
-  +----------------------------------------------------------------------+
-  $Id: index.php,v 1.1 2022-07-08 04:07:01 Gvox Telefonia gvoxiptecnologia@gmail.com Exp $ */
-//include issabel framework
-include_once "libs/paloSantoGrid.class.php";
-include_once "libs/paloSantoForm.class.php";
+<!DOCTYPE html>
+<html lang="en">
+    <head>
 
-function _moduleContent(&$smarty, $module_name)
-{
-    //include module files
-    include_once "modules/$module_name/configs/default.conf.php";
-    include_once "modules/$module_name/libs/paloSantoagentePainel.class.php";
+        <meta charset="utf-8" />
+        <title>Dashboard 3 | UBold - Responsive Admin Dashboard Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
 
-    //include file language agree to issabel configuration
-    //if file language not exists, then include language by default (en)
-    $lang=get_language();
-    $base_dir=dirname($_SERVER['SCRIPT_FILENAME']);
-    $lang_file="modules/$module_name/lang/$lang.lang";
-    if (file_exists("$base_dir/$lang_file")) include_once "$lang_file";
-    else include_once "modules/$module_name/lang/en.lang";
+        <!-- App css -->
+        <link href="../UBold/assets/css/config/saas/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
+        <link href="../UBold/assets/css/config/saas/app.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
 
-    //global variables
-    global $arrConf;
-    global $arrConfModule;
-    global $arrLang;
-    global $arrLangModule;
-    $arrConf = array_merge($arrConf,$arrConfModule);
-    $arrLang = array_merge($arrLang,$arrLangModule);
+        <link href="../UBold/assets/css/config/saas/bootstrap-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" />
+        <link href="../UBold/assets/css/config/saas/app-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet" />
 
-    //folder path for custom templates
-    $templates_dir=(isset($arrConf['templates_dir']))?$arrConf['templates_dir']:'themes';
-    $local_templates_dir="$base_dir/modules/$module_name/".$templates_dir.'/'.$arrConf['theme'];
+        <!-- icons -->
+        <link href="../UBold/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 
-    //conexion resource
-    //$pDB = new paloDB($arrConf['dsn_conn_database']);
-    $pDB = "";
+    </head>
+
+    <!-- body start -->
+    <body class="loading" data-layout-mode="two-column" data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "sidebar": { "color": "light", "size": "default", "showuser": false}, "topbar": {"color": "light"}, "showRightSidebarOnPageLoad": false}'>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <!-- Topbar Start -->
 
 
-    //actions
-    $action = getAction();
-    $content = "";
 
-    switch($action){
-        case "save_new":
-            $content = saveNewagentePainel($smarty, $module_name, $local_templates_dir, $pDB, $arrConf);
-            break;
-        default: // view_form
-            $content = viewFormagentePainel($smarty, $module_name, $local_templates_dir, $pDB, $arrConf);
-            break;
-    }
-    return $content;
-}
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
 
-function viewFormagentePainel($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf)
-{
-    $pagentePainel = new paloSantoagentePainel($pDB);
-    $arrFormagentePainel = createFieldForm();
-    $oForm = new paloForm($smarty,$arrFormagentePainel);
+           <!--  <div class="content-page">
+               <div class="content">-->
 
-    //begin, Form data persistence to errors and other events.
-    $_DATA  = $_POST;
-    $action = getParameter("action");
-    $id     = getParameter("id");
-    $smarty->assign("ID", $id); //persistence id with input hidden in tpl
+                    <!-- Start Content
+                    <div class="container-fluid">-->
+                        
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                              
+                                    <h4 class="page-title">Dashboard 3</h4>
+                                </div>
+                            </div>
+                        </div>     
+                        <!-- end page title --> 
+						
+						
+						    <div class="row">
+                            <div class="col-xl-3 col-md-12">
+                                <!-- Portlet card -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-widgets">
+                                            <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+                                            <a data-bs-toggle="collapse" href="#cardCollpase1" role="button" aria-expanded="false" aria-controls="cardCollpase1"><i class="mdi mdi-minus"></i></a>
+                                            <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
+                                        </div>
+                                        <h4 class="header-title mb-0">Agente Logado</h4>
 
-    if($action=="view")
-        $oForm->setViewMode();
-    else if($action=="view_edit" || getParameter("save_edit"))
-        $oForm->setEditMode();
-    //end, Form data persistence to errors and other events.
+                                        <div id="cardCollpase1" class="collapse pt-3 show">
+                                            <div class="text-center">
+                                                <div id="lifetime-sales" data-colors="#2892fd,#5ad092"></div>
+        
+                                                <div class="row mt-3">
+                                                    <div class="col-4">
+                                                        <p class="text-muted font-15 mb-1 text-truncate">Target</p>
+                                                        <h4><i class="fe-arrow-down text-danger me-1"></i>$7.8k</h4>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <p class="text-muted font-15 mb-1 text-truncate">Last week</p>
+                                                        <h4><i class="fe-arrow-up text-success me-1"></i>$1.4k</h4>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <p class="text-muted font-15 mb-1 text-truncate">Last Month</p>
+                                                        <h4><i class="fe-arrow-down text-danger me-1"></i>$9.8k</h4>
+                                                    </div>
+                                                </div> <!-- end row -->
+                                                
+                                            </div>
+                                        </div> <!-- collapsed end -->
+                                    </div> <!-- end card-body -->
+                                </div> <!-- end card-->
+                            </div> <!-- end col-->
+							<div class="col-xl-9 col-md-12">
+							  <div class="row">
+								  <div class="col-md-6 col-xl-3">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-6">
+													<div class="avatar-sm bg-success rounded">
+														<i class="fe-arrow-left avatar-title font-22 text-white"></i>
+													</div>
+												</div>
+												<div class="col-6">
+													<div class="text-end">
+														<h3 class="text-dark my-1">$<span data-plugin="counterup">12,145</span></h3>
+														<p class="text-muted mb-1 text-truncate">Income status</p>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3">
+												<h6 class="text-uppercase">ATENDIDAS <span class="float-end">60%</span></h6>
+												<div class="progress progress-sm m-0">
+													<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+														<span class="visually-hidden">60% Complete</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div> <!-- end card-->
+								</div>
+								<div class="col-md-6 col-xl-3">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-6">
+													<div class="avatar-sm bg-primary bg-gradient rounded">
+														<i class="fe-arrow-right avatar-title font-22 text-white"></i>
+													</div>
+												</div>
+												<div class="col-6">
+													<div class="text-end">
+														<h3 class="text-dark my-1">$<span data-plugin="counterup">12,145</span></h3>
+														<p class="text-muted mb-1 text-truncate">Income status</p>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3">
+												<h6 class="text-uppercase">EFETUADAS <span class="float-end">60%</span></h6>
+												<div class="progress progress-sm m-0">
+													<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+														<span class="visually-hidden">60% Complete</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div> <!-- end card-->
+								</div>
+								<div class="col-md-6 col-xl-3">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-6">
+													<div class="avatar-sm bg-warning bg-gradient rounded">
+														<i class="fe-arrow-right avatar-title font-22 text-white"></i>
+													</div>
+												</div>
+												<div class="col-6">
+													<div class="text-end">
+														<h3 class="text-dark my-1">$<span data-plugin="counterup">12,145</span></h3>
+														<p class="text-muted mb-1 text-truncate">Income status</p>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3">
+												<h6 class="text-uppercase">PAUSA <span class="float-end">60%</span></h6>
+												<div class="progress progress-sm m-0">
+													<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+														<span class="visually-hidden">60% Complete</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div> <!-- end card-->
+								</div>
+								<div class="col-md-6 col-xl-3">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-6">
+													<div class="avatar-sm bg-danger bg-gradient rounded">
+														<i class="fe-arrow-right avatar-title font-22 text-white"></i>
+													</div>
+												</div>
+												<div class="col-6">
+													<div class="text-end">
+														<h3 class="text-dark my-1">$<span data-plugin="counterup">12,145</span></h3>
+														<p class="text-muted mb-1 text-truncate">Income status</p>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3">
+												<h6 class="text-uppercase">PERDIDA <span class="float-end">60%</span></h6>
+												<div class="progress progress-sm m-0">
+													<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+														<span class="visually-hidden">60% Complete</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div> <!-- end card-->
+								</div>
+								
+							  </div>
+							  <div class="row">
+							    <div class="col-md-6 col-xl-3">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-6">
+													<div class="avatar-sm bg-danger bg-gradient rounded">
+														<i class="fe-arrow-right avatar-title font-22 text-white"></i>
+													</div>
+												</div>
+												<div class="col-6">
+													<div class="text-end">
+														<h3 class="text-dark my-1">$<span data-plugin="counterup">12,145</span></h3>
+														<p class="text-muted mb-1 text-truncate">Income status</p>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3">
+												<h6 class="text-uppercase">FILA <span class="float-end">60%</span></h6>
+												<div class="progress progress-sm m-0">
+													<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+														<span class="visually-hidden">60% Complete</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div> <!-- end card-->
+									
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-6">
+													<div class="avatar-sm bg-danger bg-gradient rounded">
+														<i class="fe-arrow-right avatar-title font-22 text-white"></i>
+													</div>
+												</div>
+												<div class="col-6">
+													<div class="text-end">
+														<h3 class="text-dark my-1">$<span data-plugin="counterup">12,145</span></h3>
+														<p class="text-muted mb-1 text-truncate">Income status</p>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3">
+												<h6 class="text-uppercase">TMA <span class="float-end">60%</span></h6>
+												<div class="progress progress-sm m-0">
+													<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+														<span class="visually-hidden">60% Complete</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div> <!-- end card-->
+								</div>
+								<div class="col-md-6 col-xl-9">
+                                <div class="card">
+                                    <div class="card-body">
+                                 
+                                        <h4 class="header-title">ATENDIDAS e EFETUADAS</h4>
+                                   
+                                        <div class="mt-3 chartjs-chart">
+                                            <canvas id="projections-actuals-chart" data-colors="#5ad092,#e3eaef" height="300"></canvas>
+                                        </div>
+                                    </div>
+                                </div> <!-- end card-->
+                            </div> <!-- end col -->
+							  
+							  </div>
+							   
+							</div>
 
-    if($action=="view" || $action=="view_edit"){ // the action is to view or view_edit.
-        $dataagentePainel = $pagentePainel->getagentePainelById($id);
-        if(is_array($dataagentePainel) & count($dataagentePainel)>0)
-            $_DATA = $dataagentePainel;
-        else{
-            $smarty->assign("mb_title", _tr("Error get Data"));
-            $smarty->assign("mb_message", $pagentePainel->errMsg);
-        }
-    }
+                        
+                        </div>
 
-    $smarty->assign("SAVE", _tr("Save"));
-    $smarty->assign("EDIT", _tr("Edit"));
-    $smarty->assign("CANCEL", _tr("Cancel"));
-    $smarty->assign("REQUIRED_FIELD", _tr("Required field"));
-    $smarty->assign("icon", "images/list.png");
 
-    $htmlForm = $oForm->fetchForm("$local_templates_dir/form.tpl",_tr("agentePainel"), $_DATA);
-    $content = "<form  method='POST' style='margin-bottom:0;' action='?menu=$module_name'>".$htmlForm."</form>";
+                     
+                     
+                        <div class="row">
+                            <!-- INBOX -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card  border mb-3">
+								<div class="card-header">EXPEDIENTE</div>
+                                    <div class="card-body">
+                                       
+                                 
+    
+                                        <div class="inbox-widget" data-simplebar style="max-height: 407px;">
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-2.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Tomaslau</p>
+                                                <p class="inbox-item-text">I've finished it! See you so...</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-3.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Stillnotdavid</p>
+                                                <p class="inbox-item-text">This theme is awesome!</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-4.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Kurafire</p>
+                                                <p class="inbox-item-text">Nice to meet you</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+    
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-5.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Shahedk</p>
+                                                <p class="inbox-item-text">Hey! there I'm available...</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Adhamdannaway</p>
+                                                <p class="inbox-item-text">This theme is awesome!</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+    
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-3.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Stillnotdavid</p>
+                                                <p class="inbox-item-text">This theme is awesome!</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-4.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Kurafire</p>
+                                                <p class="inbox-item-text">Nice to meet you</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                        </div> <!-- end inbox-widget -->
+                                    </div>
+                                </div> <!-- end card -->
+                            </div> <!-- end col -->
 
-    return $content;
-}
+                            <!-- Todos app -->
+                            <div class="col-xl-4 col-lg-6">
+                                 <div class="card  border mb-3">
+								<div class="card-header">ULTIMAS RECEBIDAS</div>
+                                    <div class="card-body">
+                                       
+                                 
+    
+                                        <div class="inbox-widget" data-simplebar style="max-height: 407px;">
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-2.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Tomaslau</p>
+                                                <p class="inbox-item-text">I've finished it! See you so...</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-3.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Stillnotdavid</p>
+                                                <p class="inbox-item-text">This theme is awesome!</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-4.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Kurafire</p>
+                                                <p class="inbox-item-text">Nice to meet you</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+    
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-5.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Shahedk</p>
+                                                <p class="inbox-item-text">Hey! there I'm available...</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Adhamdannaway</p>
+                                                <p class="inbox-item-text">This theme is awesome!</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+    
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-3.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Stillnotdavid</p>
+                                                <p class="inbox-item-text">This theme is awesome!</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-4.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Kurafire</p>
+                                                <p class="inbox-item-text">Nice to meet you</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                        </div> <!-- end inbox-widget -->
+                                    </div>
+                                </div> <!-- end card -->
+                            </div> <!-- end col -->
 
-function saveNewagentePainel($smarty, $module_name, $local_templates_dir, &$pDB, $arrConf)
-{
-    $pagentePainel = new paloSantoagentePainel($pDB);
-    $arrFormagentePainel = createFieldForm();
-    $oForm = new paloForm($smarty,$arrFormagentePainel);
+                            <!-- CHAT -->
+                            <div class="col-xl-4 col-lg-12">
+                                <div class="card  border mb-3">
+								<div class="card-header">ULTIMAS EFETUADAS</div>
+                                    <div class="card-body">
+                                       
+                                 
+    
+                                        <div class="inbox-widget" data-simplebar style="max-height: 407px;">
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-2.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Tomaslau</p>
+                                                <p class="inbox-item-text">I've finished it! See you so...</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-3.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Stillnotdavid</p>
+                                                <p class="inbox-item-text">This theme is awesome!</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-4.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Kurafire</p>
+                                                <p class="inbox-item-text">Nice to meet you</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+    
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-5.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Shahedk</p>
+                                                <p class="inbox-item-text">Hey! there I'm available...</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Adhamdannaway</p>
+                                                <p class="inbox-item-text">This theme is awesome!</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+    
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-3.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Stillnotdavid</p>
+                                                <p class="inbox-item-text">This theme is awesome!</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                            <div class="inbox-item">
+                                                <div class="inbox-item-img"><img src="../assets/images/users/user-4.jpg" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">Kurafire</p>
+                                                <p class="inbox-item-text">Nice to meet you</p>
+                                                <p class="inbox-item-date">
+                                                    <a href="javascript:(0);" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                </p>
+                                            </div>
+                                        </div> <!-- end inbox-widget -->
+                                    </div>
+                                </div> <!-- end card -->
+                            </div> <!-- end col-->
+                        </div> <!-- end row -->
+                        
+                  <!--   </div> container -->
 
-    if(!$oForm->validateForm($_POST)){
-        // Validation basic, not empty and VALIDATION_TYPE 
-        $smarty->assign("mb_title", _tr("Validation Error"));
-        $arrErrores = $oForm->arrErroresValidacion;
-        $strErrorMsg = "<b>"._tr("The following fields contain errors").":</b><br/>";
-        if(is_array($arrErrores) && count($arrErrores) > 0){
-            foreach($arrErrores as $k=>$v)
-                $strErrorMsg .= "$k, ";
-        }
-        $smarty->assign("mb_message", $strErrorMsg);
-        $content = viewFormagentePainel($smarty, $module_name, $local_templates_dir, $pDB, $arrConf);
-    }
-    else{
-        //NO ERROR, HERE IMPLEMENTATION OF SAVE
-        $content = "Code to save yet undefined.";
-    }
-    return $content;
-}
+              <!--  </div>  content -->
 
-function createFieldForm()
-{
-    $arrOptions = array('val1' => 'Value 1', 'val2' => 'Value 2', 'val3' => 'Value 3');
 
-    $arrFields = array(
-            "nome"   => array(      "LABEL"                  => _tr("nome"),
-                                            "REQUIRED"               => "no",
-                                            "INPUT_TYPE"             => "TEXT",
-                                            "INPUT_EXTRA_PARAM"      => "",
-                                            "VALIDATION_TYPE"        => "text",
-                                            "VALIDATION_EXTRA_PARAM" => ""
-                                            ),
-            "login"   => array(      "LABEL"                  => _tr("login"),
-                                            "REQUIRED"               => "no",
-                                            "INPUT_TYPE"             => "TEXT",
-                                            "INPUT_EXTRA_PARAM"      => "",
-                                            "VALIDATION_TYPE"        => "text",
-                                            "VALIDATION_EXTRA_PARAM" => ""
-                                            ),
+                <!-- end Footer 
 
-            );
-    return $arrFields;
-}
+            </div>-->
 
-function getAction()
-{
-    if(getParameter("save_new")) //Get parameter by POST (submit)
-        return "save_new";
-    else if(getParameter("save_edit"))
-        return "save_edit";
-    else if(getParameter("delete")) 
-        return "delete";
-    else if(getParameter("new_open")) 
-        return "view_form";
-    else if(getParameter("action")=="view")      //Get parameter by GET (command pattern, links)
-        return "view_form";
-    else if(getParameter("action")=="view_edit")
-        return "view_form";
-    else
-        return "report"; //cancel
-}
-?>
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+
+        </div>
+        <!-- END wrapper -->
+
+
+        <!-- /Right-bar -->
+
+        <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div>
+
+        <!-- Vendor js -->
+        <script src="../UBold/assets/js/vendor.min.js"></script>
+
+        <!-- Chart JS -->
+        <script src="../UBold/assets/libs/chart.js/Chart.bundle.min.js"></script>
+
+        <script src="../UBold/assets/libs/moment/min/moment.min.js"></script>
+        <script src="../UBold/assets/libs/jquery.scrollto/jquery.scrollTo.min.js"></script>
+
+        <!-- Chat app -->
+        <script src="../UBold/assets/js/pages/jquery.chat.js"></script>
+
+        <!-- Todo app -->
+        <script src="../UBold/assets/js/pages/jquery.todo.js"></script>
+
+        <!-- Dashboard init JS -->
+        <script src="../UBold/assets/js/pages/dashboard-3.init.js"></script>
+
+        <!-- App js-->
+        <script src="../UBold/assets/js/app.min.js"></script>
+        
+    </body>
+</html>
