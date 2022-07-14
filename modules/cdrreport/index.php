@@ -335,7 +335,8 @@ function _moduleContent(&$smarty, $module_name)
     $paramFiltro['nameGrupoUsuario'] = $nameGrupoUsuario;
     $paramFiltro['ramaisGrupoUsuario'] = $ramaisGrupoUsuario;
     
-    #echo 'grupo '.$paramFiltro['nameGrupoUsuario'];
+    echo 'grupo '.$paramFiltro['nameGrupoUsuario'];
+    echo 'ramais '.$paramFiltro['ramaisGrupoUsuario'];
     $arrResult = $oCDR->listarCDRs($paramFiltro, $limit, 0, $filterLocalChannel);
     $total     = count($arrResult['cdrs']);
 
