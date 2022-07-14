@@ -161,7 +161,7 @@ class paloACL {
             return FALSE;
         }
         $this->errMsg = "";
-        $sPeticionSQL = "SELECT id, name, description FROM acl_group limit ? offset ?";
+        $sPeticionSQL = "SELECT id, name, description, grupos FROM acl_group limit ? offset ?";
         $param = array($limit, $offset);
 
         $arr_result = $this->_DB->fetchTable($sPeticionSQL, FALSE, $param);
@@ -991,10 +991,11 @@ class paloACL {
      *
      * @param string    $group       Login del usuario a crear
      * @param string    $description    Descripción del usuario a crear
+     * @param string    $grupos    Descripción del usuario a crear
      *
      * @return bool     VERDADERO si el grupo se crea correctamente, FALSO en error
      */
-    function createGroup($group, $description)
+    function createGroup($group, $description, $grupos)
     {
         $bExito = FALSE;
         if ($group == "") {
@@ -1008,8 +1009,8 @@ class paloACL {
                 $this->errMsg = "Group already exists";
             } elseif ($this->errMsg == "") {
 
-                $sPeticionSQL = 'INSERT INTO acl_group (description, name) VALUES (?, ?)';
-                if ($this->_DB->genQuery($sPeticionSQL, array($description, $group))) {
+                $sPeticionSQL = 'INSERT INTO acl_group (description, name, grupos) VALUES (?, ?, ?)';
+                if ($this->_DB->genQuery($sPeticionSQL, array($description, $group, $grupos))) {
                     $bExito = TRUE;
                 } else {
                     $this->errMsg = $this->_DB->errMsg;
@@ -1030,7 +1031,7 @@ class paloACL {
      *
      * @return bool VERDADERO si se ha modificado correctamente el grupo, FALSO si ocurre un error.
      */
-    function updateGroup($id_group, $group, $description)
+    function updateGroup($id_group, $group, $description, $grupos)
     {
         $bExito = FALSE;
         if ($group == "") {
@@ -1063,8 +1064,8 @@ class paloACL {
 
                 if ($bContinuar) {
                     // Proseguir con la modificación del grupo
-                    $sPeticionSQL = 'UPDATE acl_group SET name = ?, description = ? WHERE id = ?';
-                    if ($this->_DB->genQuery($sPeticionSQL, array($group, $description, $id_group))) {
+                    $sPeticionSQL = 'UPDATE acl_group SET name = ?, description = ?, grupos ? WHERE id = ?';
+                    if ($this->_DB->genQuery($sPeticionSQL, array($group, $description, $grupos,  $id_group))) {
                         $bExito = TRUE;
                     } else {
                         $this->errMsg = $this->_DB->errMsg;

@@ -33,6 +33,11 @@
 	<td>{$description.INPUT}</td>
         <td width="50%"></td>
       </tr>
+      <tr>
+	     <td>{$grupos.LABEL}:{if $mode ne 'view'} <span  class="required">*</span>{/if}</td>
+	      <td>{$grupos.INPUT}</td>
+        <td width="50%"></td>
+      </tr>
     </table>
   </td>
 </tr>

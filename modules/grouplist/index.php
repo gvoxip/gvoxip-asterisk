@@ -66,7 +66,13 @@ function _moduleContent(&$smarty, $module_name)
                                                     "INPUT_TYPE"             => "TEXT",
                                                     "INPUT_EXTRA_PARAM"      => "",
                                                     "VALIDATION_TYPE"        => "text",
-                                                    "VALIDATION_EXTRA_PARAM" => "")
+                                                    "VALIDATION_EXTRA_PARAM" => "",
+                             "grupos" => array("LABEL"                  => _tr("Grupos"),
+                                                    "REQUIRED"               => "yes",
+                                                    "INPUT_TYPE"             => "TEXT",
+                                                    "INPUT_EXTRA_PARAM"      => "",
+                                                    "VALIDATION_TYPE"        => "text",
+                                                    "VALIDATION_EXTRA_PARAM" => ""),)
     );
 
 //description  id  name
@@ -85,6 +91,8 @@ function _moduleContent(&$smarty, $module_name)
         include_once("libs/paloSantoForm.class.php");
         $arrFillGroup['group']       = '';
         $arrFillGroup['description'] = '';
+        $arrFillGroup['grupos'] = '';
+        
         $oForm = new paloForm($smarty, $arrFormElements);
         $contenidoModulo=$oForm->fetchForm("$local_templates_dir/grouplist.tpl", _tr("New Group"),$arrFillGroup);
     } else if(isset($_POST['edit'])) {
@@ -114,6 +122,8 @@ function _moduleContent(&$smarty, $module_name)
 
             $arrFillGroup['group'] = $arrGroup[0][1];
             $arrFillGroup['description'] = $arrGroup[0][2];
+            $arrFillGroup['grupos'] = $arrGroup[0][3];
+            
 
             // Implementar
             include_once("libs/paloSantoForm.class.php");
@@ -136,7 +146,9 @@ function _moduleContent(&$smarty, $module_name)
             // Creo el Grupo
             $postgroup = htmlspecialchars($_POST['group']);
             $postdescription = htmlspecialchars($_POST['description']);
-            $pACL->createGroup($postgroup, $postdescription);
+            $postGrupos = htmlspecialchars($_POST['grupos']);
+            
+            $pACL->createGroup($postgroup, $postdescription, $postGrupos );
 
             if(!empty($pACL->errMsg)) {
                 // Ocurrio algun error aqui
@@ -167,7 +179,8 @@ function _moduleContent(&$smarty, $module_name)
         } else {
             $group = $arrGroup[0][1];
             $description = $arrGroup[0][2];
-
+            $grupos = $arrGroup[0][3];
+        
             include_once("libs/paloSantoForm.class.php");
             $oForm = new paloForm($smarty, $arrFormElements);
 
@@ -177,7 +190,7 @@ function _moduleContent(&$smarty, $module_name)
                 // Exito, puedo procesar los datos ahora.
                 $pACL = new paloACL($pDB);
 
-                if(!$pACL->updateGroup($_POST['id_group'], $_POST['group'],$_POST['description']))
+                if(!$pACL->updateGroup($_POST['id_group'], $_POST['group'],$_POST['description'], $_POST['grupos']))
                 {
                     // Ocurrio algun error aqui
                     $smarty->assign("mb_message", "ERROR: $pACL->errMsg");
@@ -198,6 +211,8 @@ function _moduleContent(&$smarty, $module_name)
 
                 $arrFillGroup['group']       = $_POST['group'];
                 $arrFillGroup['description'] = $_POST['description'];
+                $arrFillGroup['grupos'] = $_POST['grupos'];
+                
                 $smarty->assign("id_group", htmlspecialchars($_POST['id_group'], ENT_COMPAT, 'UTF-8'));
                 $contenidoModulo=$oForm->fetchForm("$local_templates_dir/grouplist.tpl", _tr("Edit Group"), $arrFillGroup);
             }
@@ -234,7 +249,8 @@ function _moduleContent(&$smarty, $module_name)
 
             $arrTmp['group']        = $arrGroup[0][1];
             $arrTmp['description']  = $arrGroup[0][2];
-
+            $arrTmp['grupos']  = $arrGroup[0][3];
+            
             $smarty->assign("id_group", htmlspecialchars($_GET['id'], ENT_COMPAT, 'UTF-8'));
             $contenidoModulo=$oForm->fetchForm("$local_templates_dir/grouplist.tpl", _tr("View Group"), $arrTmp); // hay que pasar el arreglo
         }
@@ -290,6 +306,7 @@ function _moduleContent(&$smarty, $module_name)
 
             $arrTmp[0] = "&nbsp;<a href='?menu=grouplist&action=view&id=" . $group[0] . "'>" . $group[1] . "</a>";//id_group   name
             $arrTmp[1] = $group[2];//description
+            $arrTmp[2] = $group[3];//grupos
             $arrData[] = $arrTmp;
         }
 
@@ -298,6 +315,8 @@ function _moduleContent(&$smarty, $module_name)
                          "columns"  => array(0 => array("name"      => _tr("Group"),
                                                         "property1" => ""),
                                              1 => array("name"      => _tr("Description"),
+                                                       "property1" => ""),
+                                             2 => array("name"      => _tr("Grupos"),
                                                        "property1" => "")
                                             )
                         );
