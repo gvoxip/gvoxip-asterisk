@@ -934,7 +934,7 @@ class paloACL {
 
               }
                                
-            echo $sPeticionSQL;
+           // echo $sPeticionSQL;
             $result = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, null);
             if ($result && is_array($result) && count($result)>0) {
                 $ramais = $result[0];
