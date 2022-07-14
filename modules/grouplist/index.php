@@ -66,13 +66,13 @@ function _moduleContent(&$smarty, $module_name)
                                                     "INPUT_TYPE"             => "TEXT",
                                                     "INPUT_EXTRA_PARAM"      => "",
                                                     "VALIDATION_TYPE"        => "text",
-                                                    "VALIDATION_EXTRA_PARAM" => "",
-                             "grupos" => array("LABEL"                  => _tr("Grupos"),
+                                                    "VALIDATION_EXTRA_PARAM" => ""),
+                              "grupos"       => array("LABEL"                  => _tr("Grupos"),
                                                     "REQUIRED"               => "yes",
                                                     "INPUT_TYPE"             => "TEXT",
                                                     "INPUT_EXTRA_PARAM"      => "",
                                                     "VALIDATION_TYPE"        => "text",
-                                                    "VALIDATION_EXTRA_PARAM" => ""),)
+                                                    "VALIDATION_EXTRA_PARAM" => "")
     );
 
 //description  id  name
