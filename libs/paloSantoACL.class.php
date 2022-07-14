@@ -930,7 +930,7 @@ class paloACL {
                                 INNER JOIN acl_user user on user.id = userGrp.id_user
                                 INNER JOIN acl_group grp on grp.id = userGrp.id_group
                                 WHERE  grp.name in($grupoName)";
-            echo $sPeticionSQL;
+           // echo $sPeticionSQL;
             $result = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, null);
             if ($result && is_array($result) && count($result)>0) {
                 $ramais = $result[0];
@@ -1086,9 +1086,9 @@ class paloACL {
                 if ($bContinuar) {
                     // Proseguir con la modificación del grupo
                     $sPeticionSQL = 'UPDATE acl_group SET name = ?, description = ?, grupos = ? WHERE id = ?';
-                    echo $sPeticionSQL;
-                    echo $grupos;
-                    echo $group;
+                    //echo $sPeticionSQL;
+                   // echo $grupos;
+                   // echo $group;
                     if ($this->_DB->genQuery($sPeticionSQL, array($group, $description, $grupos,  $id_group))) {
                         $bExito = TRUE;
                     } else {

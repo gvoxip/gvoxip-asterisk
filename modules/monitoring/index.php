@@ -82,7 +82,9 @@ function _moduleContent(&$smarty, $module_name)
 
 function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $pACL, $arrConf, $user, $extension)
 {
-    $nameGrupoUsuario = $pACL->getUserNameGrupo($user);
+ 
+
+    $nameGrupoUsuario = $pACL->getUserNameGrupos($user);
     $ramaisGrupoUsuario = $pACL->getRamaisNameGrupo($nameGrupoUsuario);
     require_once "libs/paloSantoForm.class.php";
     $arrUniqueids=explode(',', $_POST['uniqueid']);    
