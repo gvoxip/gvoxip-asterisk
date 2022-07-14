@@ -898,6 +898,26 @@ class paloACL {
     }
 
 
+    function getUserNameGrupos($username)
+    {
+        $nameGrupo= null;
+        if (is_null($username)) {
+            $this->errMsg = "Username is not valid";
+        } else {
+            $this->errMsg = "";
+            $sPeticionSQL = " SELECT grp.grupos as grupo_nome FROM acl_membership userGrp
+                              INNER JOIN acl_user user on user.id = userGrp.id_user
+                              INNER JOIN acl_group grp on grp.id = userGrp.id_group
+                              WHERE  user.name = ?";
+            $result = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, array($username));
+            if ($result && is_array($result) && count($result)>0) {
+                $nameGrupo = $result[0];
+            }else $this->errMsg = $this->_DB->errMsg;
+        }
+        return $nameGrupo;
+    }
+
+
 
     function getRamaisNameGrupo($grupoName)
     {
@@ -909,7 +929,7 @@ class paloACL {
             $sPeticionSQL = " SELECT GROUP_CONCAT(user.extension, ', ') FROM acl_membership userGrp
                                 INNER JOIN acl_user user on user.id = userGrp.id_user
                                 INNER JOIN acl_group grp on grp.id = userGrp.id_group
-                                WHERE  grp.name = ?";
+                                WHERE  grp.name in(?)";
             $result = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, array($grupoName));
             if ($result && is_array($result) && count($result)>0) {
                 $ramais = $result[0];

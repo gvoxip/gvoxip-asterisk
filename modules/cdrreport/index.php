@@ -68,7 +68,7 @@ function _moduleContent(&$smarty, $module_name)
     }
     $user = $_SESSION['issabel_user'];
     $extension = $pACL->getUserExtension($user);
-    $nameGrupoUsuario = $pACL->getUserNameGrupo($user);
+    $nameGrupoUsuario = $pACL->getUserNameGrupos($user);
     $ramaisGrupoUsuario = $pACL->getRamaisNameGrupo($nameGrupoUsuario);
     if ($extension == '') $extension = NULL;
 
