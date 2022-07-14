@@ -929,7 +929,7 @@ class paloACL {
             $sPeticionSQL = " SELECT GROUP_CONCAT(user.extension, ', ') FROM acl_membership userGrp
                                 INNER JOIN acl_user user on user.id = userGrp.id_user
                                 INNER JOIN acl_group grp on grp.id = userGrp.id_group
-                                WHERE  grp.name in($grupoName)";
+                                WHERE  grp.name in(?)";
             echo $sPeticionSQL;
             $result = $this->_DB->getFirstRowQuery($sPeticionSQL, FALSE, array($grupoName));
             if ($result && is_array($result) && count($result)>0) {
