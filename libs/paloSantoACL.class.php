@@ -1064,7 +1064,7 @@ class paloACL {
 
                 if ($bContinuar) {
                     // Proseguir con la modificación del grupo
-                    $sPeticionSQL = 'UPDATE acl_group SET name = ?, description = ?, grupos ? WHERE id = ?';
+                    $sPeticionSQL = 'UPDATE acl_group SET name = ?, description = ?, grupos = ? WHERE id = ?';
                     if ($this->_DB->genQuery($sPeticionSQL, array($group, $description, $grupos,  $id_group))) {
                         $bExito = TRUE;
                     } else {
