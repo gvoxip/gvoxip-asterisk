@@ -68,7 +68,7 @@ function _moduleContent(&$smarty, $module_name)
                                                     "VALIDATION_TYPE"        => "text",
                                                     "VALIDATION_EXTRA_PARAM" => ""),
                               "grupos"       => array("LABEL"                  => _tr("Grupos"),
-                                                    "REQUIRED"               => "yes",
+                                                    "REQUIRED"               => "false",
                                                     "INPUT_TYPE"             => "TEXT",
                                                     "INPUT_EXTRA_PARAM"      => "",
                                                     "VALIDATION_TYPE"        => "text",
@@ -211,7 +211,7 @@ function _moduleContent(&$smarty, $module_name)
 
                 $arrFillGroup['group']       = $_POST['group'];
                 $arrFillGroup['description'] = $_POST['description'];
-                $arrFillGroup['grupos'] = $_POST['grupos'];
+                $arrFillGroup['grupos']      = $_POST['grupos'];
                 
                 $smarty->assign("id_group", htmlspecialchars($_POST['id_group'], ENT_COMPAT, 'UTF-8'));
                 $contenidoModulo=$oForm->fetchForm("$local_templates_dir/grouplist.tpl", _tr("Edit Group"), $arrFillGroup);

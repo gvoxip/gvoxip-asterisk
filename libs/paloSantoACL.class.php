@@ -423,7 +423,7 @@ class paloACL {
     {
         return $this->_getRowsById(
             'acl_group',
-            array('id', 'name', 'description'),
+            array('id', 'name', 'description', 'grupos'),
             $id_group);
     }
 
