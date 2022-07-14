@@ -930,7 +930,7 @@ class paloACL {
                                 INNER JOIN acl_user user on user.id = userGrp.id_user
                                 INNER JOIN acl_group grp on grp.id = userGrp.id_group";
               if($grupoName != 'administrator') {
-                $sPeticionSQL =  $sPeticionSQL + " WHERE  grp.name in($grupoName)";
+                $sPeticionSQL =  $sPeticionSQL." WHERE  grp.name in($grupoName)";
 
               }
                                
