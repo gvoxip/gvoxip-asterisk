@@ -170,7 +170,7 @@ SQL_COND_EXTENSION;
 
 
         if (isset($param['nameGrupoUsuario'])) {
-            if($param['nameGrupoUsuario'] != 'administrator') {
+            if(strpos($param['nameGrupoUsuario'], 'administrator') !== true) {
                // echo 'grupo '.$param['nameGrupoUsuario'];
                // $condSQL[] = 'COALESCE(description, descr) = ?';
               //  $paramSQL[] = $param['nameGrupoUsuario'];
