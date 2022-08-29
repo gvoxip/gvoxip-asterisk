@@ -174,7 +174,10 @@ SQL_COND_EXTENSION;
                // echo 'grupo '.$param['nameGrupoUsuario'];
                // $condSQL[] = 'COALESCE(description, descr) = ?';
               //  $paramSQL[] = $param['nameGrupoUsuario'];
-              $condSQL[] = 'cnum IN ('.$param['ramaisGrupoUsuario'] .')';
+              //$condSQL[] = 'cnum IN ('.$param['ramaisGrupoUsuario'] .')';
+
+              $condSQL[] = '(cnum IN ('.$param['ramaisGrupoUsuario'] .') OR dstchannel IN ('.$param['usuariosRamaisGrupo'].'))';
+               
             }
         	
         }

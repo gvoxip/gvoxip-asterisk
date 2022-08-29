@@ -1,4 +1,4 @@
-/*Criar a coluna na base de dados*/
+/*Criar a coluna na base de dados acl*/
 ALTER TABLE acl_group ADD COLUMN grupos text;
 
 /*rodar permissao no banco de dados 

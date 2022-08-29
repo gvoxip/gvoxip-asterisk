@@ -27,6 +27,7 @@
 
 // exten => s,n,Set(CDR(userfield)=audio:${CALLFILENAME}.${MIXMON_FORMAT})   extensions_additional
 require_once "libs/paloSantoACL.class.php";
+include_once "libs/paloSantoCDR.class.php";
 
 function _moduleContent(&$smarty, $module_name)
 {
@@ -53,6 +54,10 @@ function _moduleContent(&$smarty, $module_name)
     $pACL = new paloACL($pDBACL);
     $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"";
     $extension = $pACL->getUserExtension($user);
+
+
+
+    
     
     if ($extension == '') $extension = NULL;
 
@@ -83,9 +88,14 @@ function _moduleContent(&$smarty, $module_name)
 function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $pACL, $arrConf, $user, $extension)
 {
  
+  // DSN para consulta de call center
+    $dsn_callcenter  = generarDSNSistema('root', 'call_center');
+    $pDB_callcenter  = new paloDB($dsn_callcenter);
+    $oCDRCALLCENTER = new paloSantoCDR($pDB_callcenter);
 
     $nameGrupoUsuario = $pACL->getUserNameGrupos($user);
     $ramaisGrupoUsuario = $pACL->getRamaisNameGrupo($nameGrupoUsuario);
+    $usuariosRamaisGrupo = $oCDRCALLCENTER->getNomeUsuarioRamaisNameGrupo($ramaisGrupoUsuario);
     require_once "libs/paloSantoForm.class.php";
     $arrUniqueids=explode(',', $_POST['uniqueid']);    
     if (isset($_POST['submit_eliminar']) && isset($_POST['uniqueid']) &&
@@ -200,6 +210,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
     );
     $param['nameGrupoUsuario'] = $nameGrupoUsuario;
     $param['ramaisGrupoUsuario'] = $ramaisGrupoUsuario;
+    $param['usuariosRamaisGrupo'] = $usuariosRamaisGrupo;
     $url = array_merge($url, $paramFilter);
 
     $arrData = null;

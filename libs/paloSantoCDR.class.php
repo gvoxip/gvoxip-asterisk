@@ -46,6 +46,7 @@ class paloSantoCDR
 
     private function _construirWhereCDR($param, $filterLocalChannel)
     {
+        
         $condSQL = array();
         $paramSQL = array();
 
@@ -145,9 +146,13 @@ SQL_COND_EXTENSION;
                // echo 'grupo '.$param['nameGrupoUsuario'];
                // $condSQL[] = 'COALESCE(description, descr) = ?';
                // $paramSQL[] = $param['nameGrupoUsuario'];
-               $condSQL[] = 'cnum IN ('.$param['ramaisGrupoUsuario'] .')';
+              
                
 
+             //  $usuariosRamaisGrupo = $this-> getNomeUsuarioRamaisNameGrupo($param['ramaisGrupoUsuario'] );
+            //   echo  $usuariosRamaisGrupo;
+            
+               $condSQL[] = '(cnum IN ('.$param['ramaisGrupoUsuario'] .') OR dstchannel IN ('.$param['usuariosRamaisGrupo'].'))';
                
             }
         	
@@ -275,6 +280,28 @@ SQL_COND_EXTENSION;
             return NULL;
         }
         return $resultado;
+    }
+
+
+    function getNomeUsuarioRamaisNameGrupo($ramaisGrupo)
+    {
+        $usuariosRamaisGrupo= null;
+        $this->errMsg = "";
+        $sPeticionSQL = "SELECT REPLACE( GROUP_CONCAT(name, ''), \",\",\"','\" ) FROM call_center.agent where number in($ramaisGrupo)";
+      //$sPeticionSQL = "SELECT COUNT(*) FROM cdr";
+    // $sPeticionSQL = "SELECT COUNT(*) FROM agent";
+        //echo  $sPeticionSQL;
+       // $data = $this->_DB->getFirstRowQuery($sPeticionSQL,true);
+            $result = $this->_DB->getFirstRowQuery($sPeticionSQL,FALSE,  NULL);
+            //echo 'resultado'.$result;
+            if ($result && is_array($result) && count($result)>0) {
+                //print_r($result);
+                $usuariosRamaisGrupo = $result[0];
+                $usuariosRamaisGrupo = "'".$usuariosRamaisGrupo."'";
+             //   echo $usuariosRamaisGrupo ;
+            }else $this->errMsg = $this->_DB->errMsg;
+                  //echo 'volta'. $usuariosRamaisGrupo ;
+        return $usuariosRamaisGrupo;
     }
 
     /**

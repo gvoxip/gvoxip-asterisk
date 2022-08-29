@@ -58,6 +58,14 @@ function _moduleContent(&$smarty, $module_name)
     $pDB  = new paloDB($dsn);
     $oCDR = new paloSantoCDR($pDB);
 
+
+     // DSN para consulta de call center
+     $dsn_callcenter  = generarDSNSistema('root', 'call_center');
+     $pDB_callcenter  = new paloDB($dsn_callcenter);
+     $oCDRCALLCENTER = new paloSantoCDR($pDB_callcenter);
+
+
+
     $pDBACL = new paloDB($arrConf['issabel_dsn']['acl']);
     if (!empty($pDBACL->errMsg)) {
         return "ERROR DE DB: $pDBACL->errMsg";
@@ -70,6 +78,9 @@ function _moduleContent(&$smarty, $module_name)
     $extension = $pACL->getUserExtension($user);
     $nameGrupoUsuario = $pACL->getUserNameGrupos($user);
     $ramaisGrupoUsuario = $pACL->getRamaisNameGrupo($nameGrupoUsuario);
+    $usuariosRamaisGrupo = $oCDRCALLCENTER->getNomeUsuarioRamaisNameGrupo($ramaisGrupoUsuario);
+    
+    
     if ($extension == '') $extension = NULL;
 
     $bPuedeVerTodos = hasModulePrivilege($user, $module_name, 'reportany');
@@ -334,6 +345,8 @@ function _moduleContent(&$smarty, $module_name)
     if ($field_name  != '' && $field_pattern != '') $paramFiltro[$field_name] = $field_pattern;
     $paramFiltro['nameGrupoUsuario'] = $nameGrupoUsuario;
     $paramFiltro['ramaisGrupoUsuario'] = $ramaisGrupoUsuario;
+    $paramFiltro['usuariosRamaisGrupo'] = $usuariosRamaisGrupo;
+    
     
     //echo 'grupo '.$paramFiltro['nameGrupoUsuario'];
     //echo 'ramais '.$paramFiltro['ramaisGrupoUsuario'];
