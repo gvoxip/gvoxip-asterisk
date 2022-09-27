@@ -78,7 +78,9 @@ function _moduleContent(&$smarty, $module_name)
     $extension = $pACL->getUserExtension($user);
     $nameGrupoUsuario = $pACL->getUserNameGrupos($user);
     $ramaisGrupoUsuario = $pACL->getRamaisNameGrupo($nameGrupoUsuario);
-    $usuariosRamaisGrupo = $oCDRCALLCENTER->getNomeUsuarioRamaisNameGrupo($ramaisGrupoUsuario);
+    $usuariosRamaisGrupo = $pACL->getNomeUsuarioRamaisNameGrupo($ramaisGrupoUsuario);
+    
+    // $usuariosRamaisGrupo = $oCDRCALLCENTER->getNomeUsuarioRamaisNameGrupo($ramaisGrupoUsuario);
     
     
     if ($extension == '') $extension = NULL;
