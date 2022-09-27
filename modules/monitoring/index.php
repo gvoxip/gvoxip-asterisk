@@ -95,7 +95,11 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
 
     $nameGrupoUsuario = $pACL->getUserNameGrupos($user);
     $ramaisGrupoUsuario = $pACL->getRamaisNameGrupo($nameGrupoUsuario);
-    $usuariosRamaisGrupo = $oCDRCALLCENTER->getNomeUsuarioRamaisNameGrupo($ramaisGrupoUsuario);
+    $usuariosRamaisGrupo = $pACL->getNomeUsuarioRamaisNameGrupo($ramaisGrupoUsuario);
+    
+    // $usuariosRamaisGrupo = $oCDRCALLCENTER->getNomeUsuarioRamaisNameGrupo($ramaisGrupoUsuario);
+    
+    
     require_once "libs/paloSantoForm.class.php";
     $arrUniqueids=explode(',', $_POST['uniqueid']);    
     if (isset($_POST['submit_eliminar']) && isset($_POST['uniqueid']) &&
