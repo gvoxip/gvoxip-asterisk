@@ -176,7 +176,7 @@ SQL_COND_EXTENSION;
               //  $paramSQL[] = $param['nameGrupoUsuario'];
               //$condSQL[] = 'cnum IN ('.$param['ramaisGrupoUsuario'] .')';
 
-              $condSQL[] = '(cnum IN ('.$param['ramaisGrupoUsuario'] .') OR dstchannel IN ('.$param['usuariosRamaisGrupo'].'))';
+              $condSQL[] = '(cnum IN ('.$param['ramaisGrupoUsuario'] .') OR dstchannel IN ('.$param['nameGrupoUsuario'].'))';
                
             }
         	
